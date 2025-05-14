@@ -15,8 +15,9 @@ import java.util.Date;
 
 @Component
 public class JwtUtil {
-    private final Key secretKey;
+    private final Key secretKey ;
     private final long TOKEN_VALID_TIME = 1000L * 60 * 60 * 2; // 2시간
+
 
     public JwtUtil(@Value("${jwt.secret}") String secret) {
         byte[] keyBytes = Decoders.BASE64.decode(secret);
@@ -59,5 +60,12 @@ public class JwtUtil {
             return bearerToken.substring(7);
         }
         return null;
+    }
+    public Claims getUserInfoFromToken(String token) {
+        return Jwts.parserBuilder()
+                .setSigningKey(secretKey)
+                .build()
+                .parseClaimsJws(token)
+                .getBody();
     }
 }

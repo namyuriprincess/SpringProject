@@ -22,22 +22,24 @@ public class CommentServiceTest {
     @Autowired
     private CommentRepository commentRepository;
 
+    private final Long testWriterId = 1L; // 테스트용 사용자 ID
+    private final Long testScheduleId = 1L;
+
     @Test
     @DisplayName("댓글 등록 테스트")
     void createComment_success() {
         // given
         CommentRequestDto request = new CommentRequestDto();
         request.setContent("테스트 댓글입니다");
-        request.setWriterId(1L);
-        request.setScheduleId(1L);
+        request.setScheduleId(testScheduleId);
         request.setParentCommentId(null); // 일반 댓글
 
         // when
-        CommentResponseDto response = commentService.createComment(request);
+        CommentResponseDto response = commentService.createComment(request, testWriterId);
 
         // then
         assertThat(response.getContent()).isEqualTo("테스트 댓글입니다");
-        assertThat(response.getScheduleId()).isEqualTo(1L);
+        assertThat(response.getScheduleId()).isEqualTo(testScheduleId);
         assertThat(response.getParentCommentId()).isNull();
     }
 
@@ -45,7 +47,7 @@ public class CommentServiceTest {
     @DisplayName("댓글 목록 조회 테스트")
     void getCommentsBySchedule_success() {
         // given
-        Long scheduleId = 1L;
+        Long scheduleId = testScheduleId;
 
         // when
         List<CommentResponseDto> comments = commentService.getCommentsBySchedule(scheduleId);
@@ -61,9 +63,8 @@ public class CommentServiceTest {
         // given
         CommentRequestDto request = new CommentRequestDto();
         request.setContent("수정 전 댓글");
-        request.setWriterId(1L);
-        request.setScheduleId(1L);
-        CommentResponseDto saved = commentService.createComment(request);
+        request.setScheduleId(testScheduleId);
+        CommentResponseDto saved = commentService.createComment(request, testWriterId);
 
         // when
         String newContent = "수정된 댓글";
@@ -79,9 +80,8 @@ public class CommentServiceTest {
         // given
         CommentRequestDto request = new CommentRequestDto();
         request.setContent("삭제할 댓글");
-        request.setWriterId(1L);
-        request.setScheduleId(1L);
-        CommentResponseDto saved = commentService.createComment(request);
+        request.setScheduleId(testScheduleId);
+        CommentResponseDto saved = commentService.createComment(request, testWriterId);
 
         // when
         commentService.deleteComment(saved.getId());

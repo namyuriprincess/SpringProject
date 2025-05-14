@@ -9,6 +9,9 @@ public enum ErrorCode {
     COMMENT_NOT_FOUND("COMMENT-001", "댓글이 존재하지 않습니다.", HttpStatus.NOT_FOUND),
     UNAUTHORIZED("COMMENT-002", "작성자만 삭제/수정할 수 있습니다.", HttpStatus.FORBIDDEN),
     INVALID_PARENT_COMMENT("COMMENT-003", "부모 댓글이 존재하지 않습니다.", HttpStatus.BAD_REQUEST),
+    PARENT_COMMENT_SCHEDULE_MISMATCH("COMMENT-004", "부모 댓글과 다른 일정에는 대댓글을 달 수 없습니다.", HttpStatus.BAD_REQUEST),
+    TOO_DEEP_COMMENT("COMMENT-005", "대댓글은 하나만 작성 가능합니다.", HttpStatus.BAD_REQUEST),
+
 
     // Schedule
     SCHEDULE_NOT_FOUND("SCHEDULE-001", "해당 일정이 존재하지 않습니다.", HttpStatus.NOT_FOUND),

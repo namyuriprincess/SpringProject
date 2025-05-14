@@ -11,6 +11,7 @@ import java.time.LocalDateTime;
 @Getter
 @NoArgsConstructor
 @Table(name = "conmment")
+
 public class Comment extends BaseEntity {
 
 
@@ -27,19 +28,19 @@ public class Comment extends BaseEntity {
     @Column(nullable = false)
     private Long scheduleId;
 
-    @Column
-    private Long parent_comment_id;
+    @Column(name = "parent_comment_id")
+    private Long parentCommentId;
 
 
     public void updateContent(String content) {
         this.content = content;
     }
 
-    public Comment(String content, Long writerId, Long scheduleId, Long parent_comment_id) {
+    public Comment(String content, Long writerId, Long scheduleId, Long parentCommentId) {
         this.content = content;
         this.writerId = writerId;
         this.scheduleId = scheduleId;
-        this.parent_comment_id = parent_comment_id;
+        this.parentCommentId = parentCommentId;
 
     }
 

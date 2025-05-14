@@ -16,6 +16,6 @@ public class CommentResponseDto {
         this.content = comment.getContent();
         this.writerId = comment.getWriterId();
         this.scheduleId = comment.getScheduleId();
-        this.parentCommentId = comment.getParent_comment_id();
+        this.parentCommentId = comment.getParentCommentId();
     }
 }
